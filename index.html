@@ -6,12 +6,14 @@
     <body>
         
         <div id="app">
-            {{ message }}
+            <p>Gold: {{ gold }}    Peons: {{peonCount}}</p>
+            <button v-on:click="clickGold">Click For Gold</button>
+            
+            <p>Buy Peon for 10 gold</p>
+            <button v-on:click="clickPeon">Click For Peon</button>
         </div>
         
-        <div class="app2" id="app2">
-            {{ message }}
-        </div>
+
         
         <script src="index.js"></script>
     </body>
