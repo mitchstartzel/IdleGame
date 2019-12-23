@@ -11,9 +11,17 @@
             
             <p>Buy Peon for 10 gold</p>
             <button v-on:click="clickPeon">Click For Peon</button>
+            
+            <div v-for="peon in peons">
+                <p>{{ peon.text }}</p> <prog-bar v-bind:name="peon.text"></prog-bar>
+            </div>
+            
+            
         </div>
         
-
+        
+        
+        
         
         <script src="index.js"></script>
     </body>
