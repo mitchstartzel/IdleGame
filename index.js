@@ -6,10 +6,13 @@ var app = new Vue({
   },
   methods: {
     clickGold: function () {
-      this.gold += 1
+		this.gold += 1
     },
     clickPeon: function () {
-      this.peonCount += 1
+		if (this.gold > 10){
+			this.gold -= 10
+			this.peonCount += 1
+		}
     }
   }
 })
