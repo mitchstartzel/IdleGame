@@ -13,3 +13,49 @@ html, body {
   height: 30px;
   background-color: #4CAF50;
 }
+
+.background {
+    position: absolute;
+    width: 750px;
+    height: 750px;
+    top: 0%;
+    left: 50%;
+    margin-left: -375px;
+}
+
+.town_hall {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    margin-left: -95px;
+    margin-top: 565px;
+    z-index: 1;
+}
+
+.test_peon {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    margin-left: -95px;
+    margin-top: 500px;
+    z-index: 1;
+}
+
+.gold_mine {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    margin-left: -300px;
+    margin-top: 30px;
+    z-index: 1;
+}
+
+.trees {
+    position: absolute;
+    height: 162px;
+    top: 0%;
+    left: 50%;
+    margin-left: 160px;
+    margin-top: 15px;
+    z-index: 1;
+}
