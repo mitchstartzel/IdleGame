@@ -9,18 +9,18 @@
             <p>Gold: {{ gold }}    Peons: {{peonCount}}</p>
             <button v-on:click="clickGold">Click For Gold</button>
             
-            <p>Buy Peon for 10 gold</p>
+            <p>Buy Peon for {{ peonCost }} gold</p>
             <button v-on:click="clickPeon">Click For Peon</button>
             
             <div v-for="peon in peons">
-                <p>{{ peon.text }}</p> <prog-bar v-bind:name="peon.text"></prog-bar>
+                <prog-bar v-bind:name=peon.name></prog-bar>
             </div>
          
          
          
          
          
-            <img src="https://i.imgur.com/acx5LyQ.png" class="test_peon">
+          <!--  <img src="https://i.imgur.com/acx5LyQ.png" class="test_peon"> -->
             <img src="https://i.imgur.com/7asGXz4.png" class="background">
             <img src="https://i.imgur.com/wfKEqpe.png" class='town_hall'>
             <img src="https://i.imgur.com/WZpEDjd.png" class='gold_mine'>
