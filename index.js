@@ -77,5 +77,14 @@ function moveBars() {
 }
 //moveBars()
 
+/*
+To Do:
+Loggers
+Pitcure controls
 
+Upgrades:
+Walking, Logging, Mining Speed
+Mining, Logging Amount
+
+*/
 
