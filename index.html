@@ -6,14 +6,24 @@
     <body>
         
         <div id="app">
-            <p>Gold: {{ gold }}    Peons: {{peonCount}}</p>
+            <p>Gold: {{ gold }}</p>
+            <p>Logs: {{ logs }}</p>
+            <p>Peons: {{peonCount}}</p>
+            <p>Loggers: {{loggerCount}}</p>
             <button v-on:click="clickGold">Click For Gold</button>
             
             <p>Buy Peon for {{ peonCost }} gold</p>
             <button v-on:click="clickPeon">Click For Peon</button>
             
+            <p>Buy Logger for {{ loggerCost }} gold</p>
+            <button v-on:click="clickLogger">Click For Logger</button>
+            
             <div v-for="peon in peons">
-                <prog-bar v-bind:name=peon.name></prog-bar>
+                <peon v-bind:name=peon.name></peon>
+            </div>
+            
+            <div v-for="logger in loggers">
+                <logger v-bind:name=logger.name></logger>
             </div>
          
          
