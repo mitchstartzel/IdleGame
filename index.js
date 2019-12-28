@@ -1,3 +1,4 @@
+//These components generate the <img> tags for peons and loggers
 Vue.component('peon', {props: {name: String}, template: '<img src="https://i.imgur.com/k23yRbP.png" class="test_peon" :id=name>'})
 
 Vue.component('logger', {props: {name: String}, template: '<img src="https://i.imgur.com/k23yRbP.png" class="test_logger" :id=name>'})
@@ -7,20 +8,22 @@ Vue.component('logger', {props: {name: String}, template: '<img src="https://i.i
 
 var app = new Vue({
   el: '#app',
-  data: {
+  data: { //Game variables
     gold: 999999,
     logs: 0,
     peonCount: 0,
     peonCost: 10,
-    peons: [],
+    peons: [], //Array of peon objects
     loggerCount: 0,
     loggerCost: 10,
-    loggers: []
+    loggers: [] //Array of logger objects
   },
   methods: {
+	//Click for gold!
     clickGold: function () {
 		this.gold += 1
     },
+	//instatiates a new peon
     clickPeon: function () {
 		if (this.gold >= this.peonCost){
 			this.gold -= this.peonCost
@@ -29,7 +32,7 @@ var app = new Vue({
             this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, animState: 0, anim: 0})
 		}
     },
-    
+    //instatiates a new logger
     clickLogger: function () {
 		if (this.gold >= this.loggerCost){
 			this.gold -= this.loggerCost
@@ -40,16 +43,17 @@ var app = new Vue({
     }
   }
 })
-
-function myMove() {
-   var id = setInterval(frame, 90)
+//This function is responsible for automating peons and loggers
+function runGame() {
+	//effectively, there is a game tick every 90ms. (or whatever this interval is set to)
+    var id = setInterval(frame, 90)
     function frame() {
         for (i = 0; i < app.peonCount; i++) {
             var peon = app.peons[i]
             peon.animState += 5;
             var elem = document.getElementById(peon.name);
-            if (!peon.returning){
-                if (peon.mTop <= 125) {
+            if (!peon.returning){ //peon is heading to mine
+                if (peon.mTop <= 125) { //reached mine
                     elem.style.zIndex = 2;
                     peon.returning = true;
                     elem.src = "https://i.imgur.com/acx5LyQ.png"
@@ -59,8 +63,8 @@ function myMove() {
                     elem.style.marginTop = peon.mTop + 'px';
                     elem.style.marginLeft = peon.mLeft + 'px';
                 }
-            } else {
-                if (peon.mTop >= 500) {
+            } else { //peon returning
+                if (peon.mTop >= 500) { //reached town hall
                     app.gold += 10;
                     peon.returning = false
                     elem.style.zIndex = 3;
@@ -73,6 +77,7 @@ function myMove() {
                     elem.style.marginLeft = peon.mLeft + 'px';
                 }
             }
+			//handles animations for walking to mine
             if (!peon.returning){
                 switch (peon.animState) {
                     case 15:
@@ -105,6 +110,7 @@ function myMove() {
             }
                 
         }
+		//animations work the same way for loggers
         for (i = 0; i < app.loggerCount; i++) {
             var peon = app.loggers[i]
             var elem = document.getElementById(peon.name);
@@ -138,25 +144,9 @@ function myMove() {
     }
 }
 
-myMove()
+runGame()
 
-function moveBars() {
-    
-    var id = setInterval(frame, 50)
-    function frame() {
-        for (i = 0; i < app.peonCount; i++) {
-            var peon = app.peons[i]
-            if (peon.progress >= 100) {
-                peon.progress = 0
-                app.gold += 10
-            }
-            peon.progress++;
-            document.getElementById(peon.text).style.width = peon.progress + "%";
-        }
-    
-    }
-}
-//moveBars()
+
 
 
 
