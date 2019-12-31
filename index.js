@@ -29,7 +29,7 @@ var app = new Vue({
 			this.gold -= this.peonCost
             this.peonCost = parseInt(10*(1.25**(this.peonCount+1)))
 			this.peonCount += 1
-            this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, animState: 0, anim: 0})
+            this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, mining: true, animState: 0, anim: 0, mineTimer: 0, mineReps: 0})
 		}
     },
     //instatiates a new logger
@@ -56,19 +56,45 @@ function runGame() {
                 if (peon.mTop <= 125) { //reached mine
                     elem.style.zIndex = 2;
                     peon.returning = true;
-                    elem.src = "https://i.imgur.com/acx5LyQ.png"
+                    peon.mining = true;
+                    elem.src = "https://i.imgur.com/acx5LyQ.png" //return 1
                 } else if (peon.mTop > 100) {
-                    peon.mTop -= 6;
-                    peon.mLeft -= 2;
+                    peon.mTop -= (6*(1.25**5));
+                    peon.mLeft -= (2*(1.25**5));
                     elem.style.marginTop = peon.mTop + 'px';
                     elem.style.marginLeft = peon.mLeft + 'px';
                 }
+            } else if (peon.mining) {
+                if (peon.mineReps < 3) {
+                    switch (peon.mineTimer) {
+                        case 6:
+                            break;
+                        case 12:
+                            break;
+                        case 18:
+                            break;
+                        case 24:
+                            break;
+                        case 30:
+                            break;
+                        case 36:
+                            break;
+                        case 42:
+                            peon.mineReps+= 6;
+                            peon.mineTimer = 0;
+                    }
+                    peon.mineTimer += 1;
+                } else {
+                    peon.mining = false;
+                    peon.mineReps = 0;
+                }
+            
             } else { //peon returning
                 if (peon.mTop >= 500) { //reached town hall
                     app.gold += 10;
                     peon.returning = false
                     elem.style.zIndex = 3;
-                    elem.src = "https://i.imgur.com/k23yRbP.png"
+                    elem.src = "https://i.imgur.com/k23yRbP.png" //walk 1
                     peon.animState = 0;
                 } else {
                     peon.mTop += 6;
@@ -81,28 +107,28 @@ function runGame() {
             if (!peon.returning){
                 switch (peon.animState) {
                     case 15:
-                        elem.src="https://i.imgur.com/dKAnONq.png";
+                        elem.src="https://i.imgur.com/dKAnONq.png"; //walk 2
                         break;
                     case 30:
-                        elem.src="https://i.imgur.com/vvZaf3n.png";
+                        elem.src="https://i.imgur.com/vvZaf3n.png"; //walk 3
                         break;
                     case 45:
-                        elem.src="https://i.imgur.com/dKAnONq.png";
+                        elem.src="https://i.imgur.com/dKAnONq.png"; //walk 2
                         break;
                     case 60:
-                        elem.src="https://i.imgur.com/k23yRbP.png";
+                        elem.src="https://i.imgur.com/k23yRbP.png"; //walk 1
                         break;
                     case 75:
-                        elem.src="https://i.imgur.com/hzRLJbx.png";
+                        elem.src="https://i.imgur.com/hzRLJbx.png"; //walk 5
                         break;
                     case 90:
-                        elem.src="https://i.imgur.com/lGyfK8U.png";
+                        elem.src="https://i.imgur.com/lGyfK8U.png"; //walk 4
                         break;
-                    case 105:
-                        elem.src="https://i.imgur.com/hzRLJbx.png";
+                    case 105: 
+                        elem.src="https://i.imgur.com/hzRLJbx.png"; //walk 5
                         break;
                     case 120:
-                        elem.src="https://i.imgur.com/k23yRbP.png";
+                        elem.src="https://i.imgur.com/k23yRbP.png"; //walk 1
                         peon.animState = 0;
                         break;
             }
@@ -147,6 +173,20 @@ function runGame() {
 runGame()
 
 
+/*to do
+Upgrades System
+Click Amount
+Mine Amount
+Move Speed
+Mine Speed
 
+Visual Based Menu
+
+Effects For Gold Gain
+
+Full Animation
+
+
+*/
 
 
