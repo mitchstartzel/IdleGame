@@ -18,7 +18,7 @@ Full Animation
 var app = new Vue({
   el: '#app',
   data: { //Game variables
-    gold: 10000,
+    gold: 0,
     logs: 9999999,
     peonCount: 0,
     peonCost: 10,
@@ -75,8 +75,8 @@ var app = new Vue({
             this.gold -= this.mineSpeedCost[0]
             this.logs -= this.mineSpeedCost[1]
             this.mineSpeed += 1
-            this.mineSpeedCost[0] = 250*parseInt(2**this.mineSpeed)
-            this.mineSpeedCost[1] = 250*parseInt(2**this.mineSpeed)
+            this.mineSpeedCost[0] = 250*parseInt(15**this.mineSpeed)
+            this.mineSpeedCost[1] = 250*parseInt(15**this.mineSpeed)
         }
     },
     //upgrade gold per click
@@ -95,7 +95,7 @@ var app = new Vue({
 			this.gold -= this.peonCost
             this.peonCost = parseInt(10*(1.25**(this.peonCount+1)))
 			this.peonCount += 1
-            this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, mining: true, animState: 0, anim: 0, mineTimer: 0, mineReps: 3+(parseInt(Math.random()*10)%3)})
+            this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, mining: true, animState: 0, anim: 0, mineTimer: 0, mineReps: 5+(parseInt(Math.random()*10)%5)})
 		}
     },
     //instatiates a new logger
@@ -150,6 +150,8 @@ function runGame() {
                     elem.style.zIndex = 2;
                     peon.returning = true;
                     peon.mining = true;
+                    peon.mLeft -= 75
+                    elem.style.marginLeft = peon.mLeft + 'px';
                     elem.src = "https://i.imgur.com/acx5LyQ.png" //return 1
                 } else if (peon.mTop > 100) {
                     peon.mTop -= (6*(1.25**app.peonSpeed));
@@ -177,10 +179,10 @@ function runGame() {
                             peon.mineReps -= 1;
                             peon.mineTimer = 0;
                     }
-                    peon.mineTimer += 1;
+                    peon.mineTimer += 2;
                 } else {
                     peon.mining = false;
-                    peon.mineReps = 3 + (parseInt(Math.random()*10)%2);
+                    peon.mineReps = 5 + (parseInt(Math.random()*10)%2);
                 }
             
             } else { //peon returning
@@ -188,6 +190,8 @@ function runGame() {
                     app.gold += app.peonAmount*10;
                     peon.returning = false
                     elem.style.zIndex = 3;
+                    peon.mLeft += 75
+                    elem.style.marginLeft = peon.mLeft + 'px';
                     elem.src = "https://i.imgur.com/k23yRbP.png" //walk 1
                     peon.animState = 0;
                 } else {
