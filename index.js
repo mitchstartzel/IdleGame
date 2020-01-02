@@ -18,7 +18,7 @@ Full Animation
 var app = new Vue({
   el: '#app',
   data: { //Game variables
-    gold: 0,
+    gold: 10000,
     logs: 9999999,
     peonCount: 0,
     peonCost: 10,
@@ -95,7 +95,7 @@ var app = new Vue({
 			this.gold -= this.peonCost
             this.peonCost = parseInt(10*(1.25**(this.peonCount+1)))
 			this.peonCount += 1
-            this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, mining: true, animState: 0, anim: 0, mineTimer: 0, mineReps: 3})
+            this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, mining: true, animState: 0, anim: 0, mineTimer: 0, mineReps: 3+(parseInt(Math.random()*10)%3)})
 		}
     },
     //instatiates a new logger
@@ -180,7 +180,7 @@ function runGame() {
                     peon.mineTimer += 1;
                 } else {
                     peon.mining = false;
-                    peon.mineReps = 3 + (Math.random);
+                    peon.mineReps = 3 + (parseInt(Math.random()*10)%2);
                 }
             
             } else { //peon returning
