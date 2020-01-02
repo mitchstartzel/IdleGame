@@ -4,11 +4,7 @@ Vue.component('peon', {props: {name: String}, template: '<img src="https://i.img
 Vue.component('logger', {props: {name: String}, template: '<img src="https://i.imgur.com/k23yRbP.png" class="test_logger" :id=name>'})
 
 /*to do
-Upgrades System
-Click Amount
-Mine Amount
-Move Speed
-Mine Speed
+Upgrade Caps
 
 Visual Based Menu
 
@@ -22,28 +18,76 @@ Full Animation
 var app = new Vue({
   el: '#app',
   data: { //Game variables
-    gold: 999999,
-    logs: 0,
+    gold: 0,
+    logs: 9999999,
     peonCount: 0,
     peonCost: 10,
     peons: [], //Array of peon objects
     loggerCount: 0,
     loggerCost: 10,
-    loggers: [] //Array of logger objects
+    loggers: [], //Array of logger objects
 	//the rest of these are upgrade counters:
-	peonSpeed: 0,
-	loggerSpeed: 0,
-	peonAmount: 0,
-	loggerAmount: 0,
-	clickGoldAmount: 0,
-	clickLogAmount: 0,
-	mineSpeedAmount: 0,
-	logSpeedAmount:0
+	peonSpeed: 1,
+    peonSpeedCost: [750,750],
+    
+	peonAmount: 1,
+    peonAmountCost: [500,500],
+    
+	clickGoldAmount: 1,
+    clickGoldAmountCost: [2,2],
+    
+	mineSpeed: 1, //SHOULD CAP AT 5!!!
+    mineSpeedCost: [250,250],
+    
   },
   methods: {
 	//Click for gold!
     clickGold: function () {
-		this.gold += 1
+		this.gold += this.clickGoldAmount
+    },
+    //Click for Logs!
+    clickLogs: function () {
+		this.logs += 1
+    },
+    //Upgrade Peon Speed
+    peonSpeedUp: function () {
+        if (this.gold >= this.peonSpeedCost[0] && this.logs >= this.peonSpeedCost[1]) {
+            this.gold -= this.peonSpeedCost[0]
+            this.logs -= this.peonSpeedCost[1]
+            this.peonSpeed += 1
+            this.peonSpeedCost[0] = 750*parseInt(5**(this.peonSpeed))
+            this.peonSpeedCost[1] = 750*parseInt(5**(this.peonSpeed))
+        }
+    },
+    //upgrade gold carry amount
+    peonAmountUp: function () {
+        if (this.gold >= this.peonAmountCost[0] && this.logs >= this.peonAmountCost[1]) {
+            this.gold -= this.peonAmountCost[0]
+            this.logs -= this.peonAmountCost[1]
+            this.peonAmount += 1
+            this.peonAmountCost[0] = 500*parseInt(3**this.peonAmount)
+            this.peonAmountCost[1] = 500*parseInt(3**this.peonAmount)
+        }
+    },
+    //upgrade mining speed
+    mineSpeedUp: function () {
+		if (this.gold >= this.mineSpeedCost[0] && this.logs >= this.mineSpeedCost[1]) {
+            this.gold -= this.mineSpeedCost[0]
+            this.logs -= this.mineSpeedCost[1]
+            this.mineSpeed += 1
+            this.mineSpeedCost[0] = 250*parseInt(2**this.mineSpeed)
+            this.mineSpeedCost[1] = 250*parseInt(2**this.mineSpeed)
+        }
+    },
+    //upgrade gold per click
+    clickGoldUp: function () {
+		if (this.gold >= this.clickGoldAmountCost[0] && this.logs >= this.clickGoldAmountCost[1]) {
+            this.gold -= this.clickGoldAmountCost[0]
+            this.logs -= this.clickGoldAmountCost[1]
+            this.clickGoldAmount += 1
+            this.clickGoldAmountCost[0] = 2**this.clickGoldAmount
+            this.clickGoldAmountCost[1] = 2**this.clickGoldAmount
+        }
     },
 	//instatiates a new peon
     clickPeon: function () {
@@ -51,7 +95,7 @@ var app = new Vue({
 			this.gold -= this.peonCost
             this.peonCost = parseInt(10*(1.25**(this.peonCount+1)))
 			this.peonCount += 1
-            this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, mining: true, animState: 0, anim: 0, mineTimer: 0, mineReps: 0})
+            this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, mining: true, animState: 0, anim: 0, mineTimer: 0, mineReps: 3})
 		}
     },
     //instatiates a new logger
@@ -75,58 +119,6 @@ function runGame() {
             peon.animState += 5;
             var elem = document.getElementById(peon.name);
             if (!peon.returning){ //peon is heading to mine
-                if (peon.mTop <= 125) { //reached mine
-                    elem.style.zIndex = 2;
-                    peon.returning = true;
-                    peon.mining = true;
-                    elem.src = "https://i.imgur.com/acx5LyQ.png" //return 1
-                } else if (peon.mTop > 100) {
-                    peon.mTop -= (6*(1.25**5));
-                    peon.mLeft -= (2*(1.25**5));
-                    elem.style.marginTop = peon.mTop + 'px';
-                    elem.style.marginLeft = peon.mLeft + 'px';
-                }
-            } else if (peon.mining) {
-                if (peon.mineReps < 3) {
-                    switch (peon.mineTimer) {
-                        case 6:
-                            break;
-                        case 12:
-                            break;
-                        case 18:
-                            break;
-                        case 24:
-                            break;
-                        case 30:
-                            break;
-                        case 36:
-                            break;
-                        case 42:
-                            peon.mineReps+= 6;
-                            peon.mineTimer = 0;
-                    }
-                    peon.mineTimer += 1;
-                } else {
-                    peon.mining = false;
-                    peon.mineReps = 0;
-                }
-            
-            } else { //peon returning
-                if (peon.mTop >= 500) { //reached town hall
-                    app.gold += 10;
-                    peon.returning = false
-                    elem.style.zIndex = 3;
-                    elem.src = "https://i.imgur.com/k23yRbP.png" //walk 1
-                    peon.animState = 0;
-                } else {
-                    peon.mTop += 6;
-                    peon.mLeft += 2;
-                    elem.style.marginTop = peon.mTop + 'px';
-                    elem.style.marginLeft = peon.mLeft + 'px';
-                }
-            }
-			//handles animations for walking to mine
-            if (!peon.returning){
                 switch (peon.animState) {
                     case 15:
                         elem.src="https://i.imgur.com/dKAnONq.png"; //walk 2
@@ -153,9 +145,60 @@ function runGame() {
                         elem.src="https://i.imgur.com/k23yRbP.png"; //walk 1
                         peon.animState = 0;
                         break;
+                }
+                if (peon.mTop <= 125) { //reached mine
+                    elem.style.zIndex = 2;
+                    peon.returning = true;
+                    peon.mining = true;
+                    elem.src = "https://i.imgur.com/acx5LyQ.png" //return 1
+                } else if (peon.mTop > 100) {
+                    peon.mTop -= (6*(1.25**app.peonSpeed));
+                    peon.mLeft -= (2*(1.25**app.peonSpeed));
+                    elem.style.marginTop = peon.mTop + 'px';
+                    elem.style.marginLeft = peon.mLeft + 'px';
+                }
+                
+            } else if (peon.mining) { //peon is mining
+                if (peon.mineReps - app.mineSpeed > 0) {
+                    switch (peon.mineTimer) {
+                        case 6:
+                            break;
+                        case 12:
+                            break;
+                        case 18:
+                            break;
+                        case 24:
+                            break;
+                        case 30:
+                            break;
+                        case 36:
+                            break;
+                        case 42:
+                            peon.mineReps -= 1;
+                            peon.mineTimer = 0;
+                    }
+                    peon.mineTimer += 1;
+                } else {
+                    peon.mining = false;
+                    peon.mineReps = 3;
+                }
+            
+            } else { //peon returning
+                if (peon.mTop >= 500) { //reached town hall
+                    app.gold += app.peonAmount*10;
+                    peon.returning = false
+                    elem.style.zIndex = 3;
+                    elem.src = "https://i.imgur.com/k23yRbP.png" //walk 1
+                    peon.animState = 0;
+                } else {
+                    peon.mTop += (6*(1.25**app.peonSpeed));
+                    peon.mLeft += (2*(1.25**app.peonSpeed));
+                    elem.style.marginTop = peon.mTop + 'px';
+                    elem.style.marginLeft = peon.mLeft + 'px';
+                }
             }
-
-            }
+			//handles animations for walking to mine
+          
                 
         }
 		//animations work the same way for loggers
