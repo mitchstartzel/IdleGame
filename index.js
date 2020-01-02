@@ -3,8 +3,21 @@ Vue.component('peon', {props: {name: String}, template: '<img src="https://i.img
 
 Vue.component('logger', {props: {name: String}, template: '<img src="https://i.imgur.com/k23yRbP.png" class="test_logger" :id=name>'})
 
-//https://i.imgur.com/acx5LyQ.png return1
-//https://i.imgur.com/k23yRbP.png
+/*to do
+Upgrades System
+Click Amount
+Mine Amount
+Move Speed
+Mine Speed
+
+Visual Based Menu
+
+Effects For Gold Gain
+
+Full Animation
+
+
+*/
 
 var app = new Vue({
   el: '#app',
@@ -17,6 +30,15 @@ var app = new Vue({
     loggerCount: 0,
     loggerCost: 10,
     loggers: [] //Array of logger objects
+	//the rest of these are upgrade counters:
+	peonSpeed: 0,
+	loggerSpeed: 0,
+	peonAmount: 0,
+	loggerAmount: 0,
+	clickGoldAmount: 0,
+	clickLogAmount: 0,
+	mineSpeedAmount: 0,
+	logSpeedAmount:0
   },
   methods: {
 	//Click for gold!
@@ -173,20 +195,6 @@ function runGame() {
 runGame()
 
 
-/*to do
-Upgrades System
-Click Amount
-Mine Amount
-Move Speed
-Mine Speed
 
-Visual Based Menu
-
-Effects For Gold Gain
-
-Full Animation
-
-
-*/
 
 

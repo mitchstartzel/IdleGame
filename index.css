@@ -68,3 +68,8 @@ html, body {
     margin-top: 15px;
     z-index: 1;
 }
+
+.upgrade_button{
+    width: 75px;
+    
+}
