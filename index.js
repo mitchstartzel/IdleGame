@@ -180,7 +180,7 @@ function runGame() {
                     peon.mineTimer += 1;
                 } else {
                     peon.mining = false;
-                    peon.mineReps = 3 + Math.random%2;
+                    peon.mineReps = 3 + (Math.random);
                 }
             
             } else { //peon returning
