@@ -106,6 +106,54 @@ var app = new Vue({
 			this.loggerCount += 1
             this.loggers.push({name: "Logger"+this.loggerCount, mLeft: 20, mTop: 500, returning: false})
 		}
+    },
+	//upgrade gold carry amount
+    peonAmountUp: function () {
+        if (this.gold >= this.peonAmountCost[0] && this.logs >= this.peonAmountCost[1]) {
+            this.gold -= this.peonAmountCost[0]
+            this.logs -= this.peonAmountCost[1]
+            this.peonAmount += 1
+            this.peonAmountCost[0] = 500*parseInt(3**this.peonAmount)
+            this.peonAmountCost[1] = 500*parseInt(3**this.peonAmount)
+        }
+    },
+    //upgrade mining speed
+    mineSpeedUp: function () {
+		if (this.gold >= this.mineSpeedCost[0] && this.logs >= this.mineSpeedCost[1]) {
+            this.gold -= this.mineSpeedCost[0]
+            this.logs -= this.mineSpeedCost[1]
+            this.mineSpeed += 1
+            this.mineSpeedCost[0] = 250*parseInt(15**this.mineSpeed)
+            this.mineSpeedCost[1] = 250*parseInt(15**this.mineSpeed)
+        }
+    },
+    //upgrade gold per click
+    clickGoldUp: function () {
+		if (this.gold >= this.clickGoldAmountCost[0] && this.logs >= this.clickGoldAmountCost[1]) {
+            this.gold -= this.clickGoldAmountCost[0]
+            this.logs -= this.clickGoldAmountCost[1]
+            this.clickGoldAmount += 1
+            this.clickGoldAmountCost[0] = 2**this.clickGoldAmount
+            this.clickGoldAmountCost[1] = 2**this.clickGoldAmount
+        }
+    },
+	//instatiates a new peon
+    clickPeon: function () {
+		if (this.gold >= this.peonCost){
+			this.gold -= this.peonCost
+            this.peonCost = parseInt(10*(1.25**(this.peonCount+1)))
+			this.peonCount += 1
+            this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, mining: true, animState: 0, anim: 0, mineTimer: 0, mineReps: 5+(parseInt(Math.random()*10)%5)})
+		}
+    },
+    //instatiates a new logger
+    clickLogger: function () {
+		if (this.gold >= this.loggerCost){
+			this.gold -= this.loggerCost
+            this.loggerCost = parseInt(10*(1.25**(this.loggerCount+1)))
+			this.loggerCount += 1
+            this.loggers.push({name: "Logger"+this.loggerCount, mLeft: 20, mTop: 500, returning: false})
+		}
     }
   }
 })
