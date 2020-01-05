@@ -18,8 +18,8 @@ Full Animation
 var app = new Vue({
   el: '#app',
   data: { //Game variables
-    gold: 0,
-    logs: 9999999,
+    gold: 10,
+    logs: 10,
     peonCount: 0,
     peonCost: 10,
     peons: [], //Array of peon objects
@@ -33,11 +33,22 @@ var app = new Vue({
 	peonAmount: 1,
     peonAmountCost: [500,500],
     
-	clickGoldAmount: 1,
-    clickGoldAmountCost: [2,2],
-    
 	mineSpeed: 1, //SHOULD CAP AT 5!!!
     mineSpeedCost: [250,250],
+    
+    //logger upgrades:
+    loggerSpeed: 1,
+    loggerSpeedCost: [750,750],
+    
+	loggerAmount: 1,
+    loggerAmountCost: [500,500],
+
+	loggingSpeed: 1, //SHOULD CAP AT 5!!!
+    loggingSpeedCost: [250,250],
+    
+    //click upgrade
+    clickGoldAmount: 1,
+    clickGoldAmountCost: [2,2],
     
   },
   methods: {
@@ -47,7 +58,7 @@ var app = new Vue({
     },
     //Click for Logs!
     clickLogs: function () {
-		this.logs += 1
+		this.logs += this.clickGoldAmount
     },
     //Upgrade Peon Speed
     peonSpeedUp: function () {
@@ -98,62 +109,45 @@ var app = new Vue({
             this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, mining: true, animState: 0, anim: 0, mineTimer: 0, mineReps: 5+(parseInt(Math.random()*10)%5)})
 		}
     },
+    //NOW LOGGER FUNCTIONS
     //instatiates a new logger
     clickLogger: function () {
 		if (this.gold >= this.loggerCost){
 			this.gold -= this.loggerCost
             this.loggerCost = parseInt(10*(1.25**(this.loggerCount+1)))
 			this.loggerCount += 1
-            this.loggers.push({name: "Logger"+this.loggerCount, mLeft: 20, mTop: 500, returning: false})
+            this.loggers.push({name: "Logger"+this.loggerCount, mLeft: 20, mTop: 500, returning: false, logging: true, animState: 0, anim: 0, loggingTimer: 0, loggingReps: 5+(parseInt(Math.random()*10)%5)})
 		}
     },
-	//upgrade gold carry amount
-    peonAmountUp: function () {
-        if (this.gold >= this.peonAmountCost[0] && this.logs >= this.peonAmountCost[1]) {
-            this.gold -= this.peonAmountCost[0]
-            this.logs -= this.peonAmountCost[1]
-            this.peonAmount += 1
-            this.peonAmountCost[0] = 500*parseInt(3**this.peonAmount)
-            this.peonAmountCost[1] = 500*parseInt(3**this.peonAmount)
+	//upgrade log carry amount
+    loggerAmountUp: function () {
+        if (this.gold >= this.loggerAmountCost[0] && this.logs >= this.loggerAmountCost[1]) {
+            this.gold -= this.loggerAmountCost[0]
+            this.logs -= this.loggerAmountCost[1]
+            this.loggerAmount += 1
+            this.loggerAmountCost[0] = 500*parseInt(3**this.loggerAmount)
+            this.loggerAmountCost[1] = 500*parseInt(3**this.loggerAmount)
         }
     },
-    //upgrade mining speed
-    mineSpeedUp: function () {
-		if (this.gold >= this.mineSpeedCost[0] && this.logs >= this.mineSpeedCost[1]) {
-            this.gold -= this.mineSpeedCost[0]
-            this.logs -= this.mineSpeedCost[1]
-            this.mineSpeed += 1
-            this.mineSpeedCost[0] = 250*parseInt(15**this.mineSpeed)
-            this.mineSpeedCost[1] = 250*parseInt(15**this.mineSpeed)
+    //upgrade logging speed
+    loggingSpeedUp: function () {
+		if (this.gold >= this.loggingSpeedCost[0] && this.logs >= this.loggingSpeedCost[1]) {
+            this.gold -= this.loggingSpeedCost[0]
+            this.logs -= this.loggingSpeedCost[1]
+            this.loggingSpeed += 1
+            this.loggingSpeedCost[0] = 250*parseInt(15**this.loggingSpeed)
+            this.loggingSpeedCost[1] = 250*parseInt(15**this.loggingSpeed)
         }
     },
-    //upgrade gold per click
-    clickGoldUp: function () {
-		if (this.gold >= this.clickGoldAmountCost[0] && this.logs >= this.clickGoldAmountCost[1]) {
-            this.gold -= this.clickGoldAmountCost[0]
-            this.logs -= this.clickGoldAmountCost[1]
-            this.clickGoldAmount += 1
-            this.clickGoldAmountCost[0] = 2**this.clickGoldAmount
-            this.clickGoldAmountCost[1] = 2**this.clickGoldAmount
+	//Upgrade logger Speed
+    loggerSpeedUp: function () {
+        if (this.gold >= this.loggerSpeedCost[0] && this.logs >= this.loggerSpeedCost[1]) {
+            this.gold -= this.loggerSpeedCost[0]
+            this.logs -= this.loggerSpeedCost[1]
+            this.loggerSpeed += 1
+            this.loggerSpeedCost[0] = 750*parseInt(5**(this.loggerSpeed))
+            this.loggerSpeedCost[1] = 750*parseInt(5**(this.loggerSpeed))
         }
-    },
-	//instatiates a new peon
-    clickPeon: function () {
-		if (this.gold >= this.peonCost){
-			this.gold -= this.peonCost
-            this.peonCost = parseInt(10*(1.25**(this.peonCount+1)))
-			this.peonCount += 1
-            this.peons.push({name: "Peon"+this.peonCount, mLeft: -95, mTop: 500, returning: false, mining: true, animState: 0, anim: 0, mineTimer: 0, mineReps: 5+(parseInt(Math.random()*10)%5)})
-		}
-    },
-    //instatiates a new logger
-    clickLogger: function () {
-		if (this.gold >= this.loggerCost){
-			this.gold -= this.loggerCost
-            this.loggerCost = parseInt(10*(1.25**(this.loggerCount+1)))
-			this.loggerCount += 1
-            this.loggers.push({name: "Logger"+this.loggerCount, mLeft: 20, mTop: 500, returning: false})
-		}
     }
   }
 })
@@ -255,35 +249,94 @@ function runGame() {
         }
 		//animations work the same way for loggers
         for (i = 0; i < app.loggerCount; i++) {
-            var peon = app.loggers[i]
-            var elem = document.getElementById(peon.name);
-            if (!peon.returning){
-                if (peon.mTop <= 125) {
+            var logger = app.loggers[i]
+            logger.animState += 5;
+            var elem = document.getElementById(logger.name);
+            if (!logger.returning){ //peon is heading to mine
+                switch (logger.animState) {
+                    case 15:
+                        elem.src="https://i.imgur.com/dKAnONq.png"; //walk 2
+                        break;
+                    case 30:
+                        elem.src="https://i.imgur.com/vvZaf3n.png"; //walk 3
+                        break;
+                    case 45:
+                        elem.src="https://i.imgur.com/dKAnONq.png"; //walk 2
+                        break;
+                    case 60:
+                        elem.src="https://i.imgur.com/k23yRbP.png"; //walk 1
+                        break;
+                    case 75:
+                        elem.src="https://i.imgur.com/hzRLJbx.png"; //walk 5
+                        break;
+                    case 90:
+                        elem.src="https://i.imgur.com/lGyfK8U.png"; //walk 4
+                        break;
+                    case 105: 
+                        elem.src="https://i.imgur.com/hzRLJbx.png"; //walk 5
+                        break;
+                    case 120:
+                        elem.src="https://i.imgur.com/k23yRbP.png"; //walk 1
+                        logger.animState = 0;
+                        break;
+                }
+                if (logger.mTop <= 125) { //reached mine
                     elem.style.zIndex = 2;
-                    peon.returning = true;
-                    elem.src = "https://i.imgur.com/acx5LyQ.png"
-                } else if (peon.mTop > 100) {
-                    peon.mTop -= 6;
-                    peon.mLeft += 2;
-                    elem.style.marginTop = peon.mTop + 'px';
-                    elem.style.marginLeft = peon.mLeft + 'px';
+                    logger.returning = true;
+                    logger.logging = true;
+                    logger.mLeft += 75
+                    elem.style.marginLeft = logger.mLeft + 'px';
+                    elem.src = "https://i.imgur.com/acx5LyQ.png" //return 1
+                } else if (logger.mTop > 100) {
+                    logger.mTop -= (6*(1.25**app.loggerSpeed));
+                    logger.mLeft += (2*(1.25**app.loggerSpeed));
+                    elem.style.marginTop = logger.mTop + 'px';
+                    elem.style.marginLeft = logger.mLeft + 'px';
                 }
-            } else {
                 
-                if (peon.mTop >= 500) {
-                    app.logs += 10;
-                    peon.returning = false
-                    elem.style.zIndex = 3;
-                    elem.src = "https://i.imgur.com/k23yRbP.png"
+            } else if (logger.logging) { //peon is mining
+                console.log(logger.loggingReps + "minus" + app.loggingSpeed)
+                if (logger.loggingReps - app.loggingSpeed > 0) {
+                    switch (logger.loggingTimer) {
+                        case 6:
+                            break;
+                        case 12:
+                            break;
+                        case 18:
+                            break;
+                        case 24:
+                            break;
+                        case 30:
+                            break;
+                        case 36:
+                            break;
+                        case 42:
+                            logger.loggingReps -= 1;
+                            logger.loggingTimer = 0;
+                    }
+                    logger.loggingTimer += 2;
                 } else {
-                    peon.mTop += 6;
-                    peon.mLeft -= 2;
-                    elem.style.marginTop = peon.mTop + 'px';
-                    elem.style.marginLeft = peon.mLeft + 'px';
+                    logger.logging = false;
+                    logger.loggingReps = 5 + (parseInt(Math.random()*10)%2);
                 }
-            }  
+            
+            } else { //peon returning
+                if (logger.mTop >= 500) { //reached town hall
+                    app.logs += app.loggerAmount*10;
+                    logger.returning = false
+                    elem.style.zIndex = 3;
+                    logger.mLeft -= 75
+                    elem.style.marginLeft = logger.mLeft + 'px';
+                    elem.src = "https://i.imgur.com/k23yRbP.png" //walk 1
+                    logger.animState = 0;
+                } else {
+                    logger.mTop += (6*(1.25**app.loggerSpeed));
+                    logger.mLeft -= (2*(1.25**app.loggerSpeed));
+                    elem.style.marginTop = logger.mTop + 'px';
+                    elem.style.marginLeft = logger.mLeft + 'px';
+                }
+            }
         }
-    
     }
 }
 

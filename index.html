@@ -37,10 +37,20 @@
             <p>Mining Speed: {{ mineSpeedCost[0] }} Gold, {{ mineSpeedCost[1] }} Lumber</p>
             <button v-on:click="mineSpeedUp" class = "upgrade_button"> {{ mineSpeed }} </button>
             
-            <p>Gold Per Click: {{ clickGoldAmountCost[0] }} Gold, {{ clickGoldAmountCost[1] }} Lumber</p>
-            <button v-on:click="clickGoldUp" class = "upgrade_button"> {{ clickGoldAmount }} </button>
+            <p>Logger Speed: {{ loggerSpeedCost[0] }} Gold, {{ loggerSpeedCost[1] }} Lumber</p>
+            <button v-on:click="loggerSpeedUp" class = "upgrade_button"> {{ loggerSpeed }} </button>
+            
+            <p>Lumber Carry Amount: {{ loggerAmountCost[0] }} Gold, {{ loggerAmountCost[1] }} Lumber</p>
+            <button v-on:click="loggerAmountUp" class = "upgrade_button"> {{ loggerAmount }} </button>
+            
+            <p>Logging Speed: {{ loggingSpeedCost[0] }} Gold, {{ loggingSpeedCost[1] }} Lumber</p>
+            <button v-on:click="loggingSpeedUp" class = "upgrade_button"> {{ loggingSpeed }} </button>
+            </br></br></br>
+            <p>Per Click: {{ clickGoldAmountCost[0] }} Gold, {{ clickGoldAmountCost[1] }} Lumber</p>
+            <button v-on:click="clickGoldUp" class = "upgrade_button"> {{ clickGoldAmount }}</button>
          
-         
+            
+
          
          
           <!--  <img src="https://i.imgur.com/acx5LyQ.png" class="test_peon"> -->
