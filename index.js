@@ -4,14 +4,17 @@ Vue.component('peon', {props: {name: String}, template: '<img src="https://i.img
 Vue.component('logger', {props: {name: String}, template: '<img src="https://i.imgur.com/k23yRbP.png" class="test_logger" :id=name>'})
 
 /*to do
-Upgrade Caps
-
 Visual Based Menu
 
-Effects For Gold Gain
+Effects For Gold/Lumber Gain
 
 Full Animation
 
+
+
+PLAYTEST NOTES:
+Upgrades too expensive!
+Less Gold, More Logs for upgrades
 
 */
 
