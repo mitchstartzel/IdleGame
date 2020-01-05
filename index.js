@@ -18,8 +18,8 @@ Full Animation
 var app = new Vue({
   el: '#app',
   data: { //Game variables
-    gold: 90000000,
-    logs: 90000000,
+    gold: 0000000,
+    logs: 0000000,
     peonCount: 0,
     peonCost: 10,
     peons: [], //Array of peon objects
