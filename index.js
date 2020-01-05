@@ -18,8 +18,8 @@ Full Animation
 var app = new Vue({
   el: '#app',
   data: { //Game variables
-    gold: 10,
-    logs: 10,
+    gold: 90000000,
+    logs: 90000000,
     peonCount: 0,
     peonCost: 10,
     peons: [], //Array of peon objects
@@ -50,6 +50,10 @@ var app = new Vue({
     clickGoldAmount: 1,
     clickGoldAmountCost: [2,2],
     
+    
+    //upgrade button controllers
+    showMineSpeedUp: true,
+    showLogSpeedUp: true,
   },
   methods: {
 	//Click for gold!
@@ -86,6 +90,9 @@ var app = new Vue({
             this.gold -= this.mineSpeedCost[0]
             this.logs -= this.mineSpeedCost[1]
             this.mineSpeed += 1
+            if (this.mineSpeed > 4) {
+                this.showMineSpeedUp = false
+            }
             this.mineSpeedCost[0] = 250*parseInt(15**this.mineSpeed)
             this.mineSpeedCost[1] = 250*parseInt(15**this.mineSpeed)
         }
@@ -135,6 +142,9 @@ var app = new Vue({
             this.gold -= this.loggingSpeedCost[0]
             this.logs -= this.loggingSpeedCost[1]
             this.loggingSpeed += 1
+            if (this.loggingSpeed > 4) {
+                this.showLogSpeedUp = false
+            }
             this.loggingSpeedCost[0] = 250*parseInt(15**this.loggingSpeed)
             this.loggingSpeedCost[1] = 250*parseInt(15**this.loggingSpeed)
         }
@@ -295,7 +305,7 @@ function runGame() {
                 }
                 
             } else if (logger.logging) { //peon is mining
-                console.log(logger.loggingReps + "minus" + app.loggingSpeed)
+                //console.log(logger.loggingReps + "minus" + app.loggingSpeed)
                 if (logger.loggingReps - app.loggingSpeed > 0) {
                     switch (logger.loggingTimer) {
                         case 6:

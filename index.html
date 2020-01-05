@@ -28,17 +28,21 @@
             </br></br></br>
             
             <p>Upgrades: </p>
-			<p>Mining Speed: {{ mineSpeedCost[0] }} Gold, {{ mineSpeedCost[1] }} Lumber</p>
-            <button v-on:click="mineSpeedUp" class = "upgrade_button"> {{ mineSpeed }} </button>
+			<div v-show="showMineSpeedUp">
+				<p>Mining Speed: {{ mineSpeedCost[0] }} Gold, {{ mineSpeedCost[1] }} Lumber</p>
+				<button v-on:click="mineSpeedUp" class = "upgrade_button"> {{ mineSpeed }} </button>
+			</div>
 			
             <p>Gold Carry Amount: {{ peonAmountCost[0] }} Gold, {{ peonAmountCost[1] }} Lumber</p>
             <button v-on:click="peonAmountUp" class = "upgrade_button"> {{ peonAmount }} </button>
             
 			<p>Peon Speed: {{ peonSpeedCost[0] }} Gold, {{ peonSpeedCost[1] }} Lumber</p>
             <button v-on:click="peonSpeedUp" class = "upgrade_button"> {{ peonSpeed }} </button>
-
-			<p>Logging Speed: {{ loggingSpeedCost[0] }} Gold, {{ loggingSpeedCost[1] }} Lumber</p>
-            <button v-on:click="loggingSpeedUp" class = "upgrade_button"> {{ loggingSpeed }} </button>
+            
+            <div v-show="showLogSpeedUp">
+			    <p>Logging Speed: {{ loggingSpeedCost[0] }} Gold, {{ loggingSpeedCost[1] }} Lumber</p>
+                <button v-on:click="loggingSpeedUp" class = "upgrade_button"> {{ loggingSpeed }} </button>
+            </div>
 			
             <p>Lumber Carry Amount: {{ loggerAmountCost[0] }} Gold, {{ loggerAmountCost[1] }} Lumber</p>
             <button v-on:click="loggerAmountUp" class = "upgrade_button"> {{ loggerAmount }} </button>
