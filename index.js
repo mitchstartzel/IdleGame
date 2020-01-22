@@ -21,8 +21,8 @@ Less Gold, More Logs for upgrades
 var app = new Vue({
   el: '#app',
   data: { //Game variables
-    gold: 0000000,
-    logs: 0000000,
+    gold: 1000000,
+    logs: 1000000,
     peonCount: 0,
     peonCost: 10,
     peons: [], //Array of peon objects
@@ -307,7 +307,7 @@ function runGame() {
                     elem.style.marginLeft = logger.mLeft + 'px';
                 }
                 
-            } else if (logger.logging) { //peon is mining
+            } else if (logger.logging) { //logger is logging
                 //console.log(logger.loggingReps + "minus" + app.loggingSpeed)
                 if (logger.loggingReps - app.loggingSpeed > 0) {
                     switch (logger.loggingTimer) {
@@ -331,16 +331,45 @@ function runGame() {
                 } else {
                     logger.logging = false;
                     logger.loggingReps = 5 + (parseInt(Math.random()*10)%2);
+					logger.animState = 0;
                 }
             
-            } else { //peon returning
+            } else { //logger returning
+				console.log(logger.animState);
+				switch (logger.animState) {
+                    case 15:
+                        elem.src="Sprites/log1.png"; //log 1
+                        break;
+                    case 30:
+                        elem.src="Sprites/log2.png"; //log 2
+                        break;
+                    case 45:
+                        elem.src="Sprites/log3.png"; //log 3
+                        break;
+                    case 60:
+                        elem.src="Sprites/log2.png"; //log 2
+                        break;
+                    case 75:
+                        elem.src="Sprites/log1.png"; //log 1
+                        break;
+                    case 90:
+                        elem.src="Sprites/log2.png"; //log 2
+                        break;
+                    case 105: 
+						elem.src="Sprites/log4.png"; //log 4
+						break;
+					case 120:
+						elem.src="Sprites/log2.png"; //log 2
+						logger.animState = 0;
+						break;
+                }
                 if (logger.mTop >= 500) { //reached town hall
                     app.logs += app.loggerAmount*10;
                     logger.returning = false
                     elem.style.zIndex = 3;
                     logger.mLeft -= 75
                     elem.style.marginLeft = logger.mLeft + 'px';
-                    elem.src = "https://i.imgur.com/k23yRbP.png" //walk 1
+                    elem.src = "Sprites/log1.png" //walk 1
                     logger.animState = 0;
                 } else {
                     logger.mTop += (6*(1.25**app.loggerSpeed));
