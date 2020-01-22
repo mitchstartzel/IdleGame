@@ -69,6 +69,23 @@ html, body {
     z-index: 1;
 }
 
+.houses {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    margin-left: 175px;
+    margin-top: 450px;
+    z-index: 1;
+}
+
+#houseCount {
+	font-size: 40px;
+	font:  Lucida Console;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	color: yellow;
+}
+
 .upgrade_button{
     width: 75px;
     
