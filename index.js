@@ -8,7 +8,7 @@ Visual Based Menu
 
 Effects For Gold/Lumber Gain
 
-Full Animation
+House System
 
 
 
@@ -21,8 +21,8 @@ Less Gold, More Logs for upgrades
 var app = new Vue({
   el: '#app',
   data: { //Game variables
-    gold: 1000000,
-    logs: 1000000,
+    gold: 100000000,
+    logs: 100000000,
     peonCount: 0,
     peonCost: 10,
     peons: [], //Array of peon objects
@@ -31,23 +31,23 @@ var app = new Vue({
     loggers: [], //Array of logger objects
 	//the rest of these are upgrade counters:
 	peonSpeed: 1,
-    peonSpeedCost: [750,750],
+    peonSpeedCost: [750,250],
     
 	peonAmount: 1,
     peonAmountCost: [500,500],
     
 	mineSpeed: 1, //SHOULD CAP AT 5!!!
-    mineSpeedCost: [250,250],
+    mineSpeedCost: [250,750],
     
     //logger upgrades:
     loggerSpeed: 1,
-    loggerSpeedCost: [750,750],
+    loggerSpeedCost: [750,250],
     
 	loggerAmount: 1,
     loggerAmountCost: [500,500],
 
 	loggingSpeed: 1, //SHOULD CAP AT 5!!!
-    loggingSpeedCost: [250,250],
+    loggingSpeedCost: [250,750],
     
     //click upgrade
     clickGoldAmount: 1,
@@ -74,7 +74,7 @@ var app = new Vue({
             this.logs -= this.peonSpeedCost[1]
             this.peonSpeed += 1
             this.peonSpeedCost[0] = 750*parseInt(5**(this.peonSpeed))
-            this.peonSpeedCost[1] = 750*parseInt(5**(this.peonSpeed))
+            this.peonSpeedCost[1] = 250*parseInt(2.5**(this.peonSpeed))
         }
     },
     //upgrade gold carry amount
@@ -84,7 +84,7 @@ var app = new Vue({
             this.logs -= this.peonAmountCost[1]
             this.peonAmount += 1
             this.peonAmountCost[0] = 500*parseInt(3**this.peonAmount)
-            this.peonAmountCost[1] = 500*parseInt(3**this.peonAmount)
+            this.peonAmountCost[1] = 500*parseInt(1.5**this.peonAmount)
         }
     },
     //upgrade mining speed
@@ -96,8 +96,8 @@ var app = new Vue({
             if (this.mineSpeed > 4) {
                 this.showMineSpeedUp = false
             }
-            this.mineSpeedCost[0] = 250*parseInt(15**this.mineSpeed)
-            this.mineSpeedCost[1] = 250*parseInt(15**this.mineSpeed)
+            this.mineSpeedCost[0] = 250*parseInt(10**this.mineSpeed)
+            this.mineSpeedCost[1] = 750*parseInt(15**this.mineSpeed)
         }
     },
     //upgrade gold per click
@@ -136,7 +136,7 @@ var app = new Vue({
             this.logs -= this.loggerAmountCost[1]
             this.loggerAmount += 1
             this.loggerAmountCost[0] = 500*parseInt(3**this.loggerAmount)
-            this.loggerAmountCost[1] = 500*parseInt(3**this.loggerAmount)
+            this.loggerAmountCost[1] = 500*parseInt(1.5**this.loggerAmount)
         }
     },
     //upgrade logging speed
@@ -148,8 +148,8 @@ var app = new Vue({
             if (this.loggingSpeed > 4) {
                 this.showLogSpeedUp = false
             }
-            this.loggingSpeedCost[0] = 250*parseInt(15**this.loggingSpeed)
-            this.loggingSpeedCost[1] = 250*parseInt(15**this.loggingSpeed)
+            this.loggingSpeedCost[0] = 250*parseInt(10**this.loggingSpeed)
+            this.loggingSpeedCost[1] = 750*parseInt(15**this.loggingSpeed)
         }
     },
 	//Upgrade logger Speed
@@ -159,7 +159,7 @@ var app = new Vue({
             this.logs -= this.loggerSpeedCost[1]
             this.loggerSpeed += 1
             this.loggerSpeedCost[0] = 750*parseInt(5**(this.loggerSpeed))
-            this.loggerSpeedCost[1] = 750*parseInt(5**(this.loggerSpeed))
+            this.loggerSpeedCost[1] = 250*parseInt(2.5**(this.loggerSpeed))
         }
     }
   }
@@ -237,10 +237,38 @@ function runGame() {
                     peon.mineTimer += 2;
                 } else {
                     peon.mining = false;
+					peon.animState = 0;
                     peon.mineReps = 5 + (parseInt(Math.random()*10)%2);
                 }
             
             } else { //peon returning
+				switch (peon.animState) {
+                    case 15:
+                        elem.src="Sprites/mine1.png"; //log 1
+                        break;
+                    case 30:
+                        elem.src="Sprites/mine2.png"; //log 2
+                        break;
+                    case 45:
+                        elem.src="Sprites/mine3.png"; //log 3
+                        break;
+                    case 60:
+                        elem.src="Sprites/mine2.png"; //log 2
+                        break;
+                    case 75:
+                        elem.src="Sprites/mine1.png"; //log 1
+                        break;
+                    case 90:
+                        elem.src="Sprites/mine4.png"; //log 2
+                        break;
+                    case 105: 
+						elem.src="Sprites/mine5.png"; //log 4
+						break;
+					case 120:
+						elem.src="Sprites/mine4.png"; //log 2
+						peon.animState = 0;
+						break;
+                }
                 if (peon.mTop >= 500) { //reached town hall
                     app.gold += app.peonAmount*10;
                     peon.returning = false
@@ -335,7 +363,6 @@ function runGame() {
                 }
             
             } else { //logger returning
-				console.log(logger.animState);
 				switch (logger.animState) {
                     case 15:
                         elem.src="Sprites/log1.png"; //log 1
