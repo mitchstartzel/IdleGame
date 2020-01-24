@@ -17,6 +17,9 @@
             
             <p>Buy Logger for {{ loggerCost }} gold</p>
             <button v-on:click="clickLogger">Click For Logger</button>
+			
+			<p>Buy House for {{ houseCost }} logs</p>
+            <button v-on:click="clickHouse">Click For House</button>
             
             <div v-for="peon in peons">
                 <peon v-bind:name=peon.name></peon>
@@ -65,7 +68,7 @@
             <img src="https://i.imgur.com/WZpEDjd.png" v-on:click="clickGold" class='gold_mine'>
             <img src="https://i.imgur.com/0qDnJa1.png" v-on:click="clickLogs" class='trees'>
 			<div class = 'houses'>
-				<p id = "houseCount">{{ gold }} </p>
+				<p id = "houseCount">{{ (peons.length + loggers.length) }} / {{houses * 5 }} </p>
 				<img src="Sprites/house.png">
 			</div>
             

@@ -1,7 +1,7 @@
 //These components generate the <img> tags for peons and loggers
-Vue.component('peon', {props: {name: String}, template: '<img src="https://i.imgur.com/k23yRbP.png" class="test_peon" :id=name>'})
+Vue.component('peon', {props: {name: String}, template: '<img src="Sprites/walk1.png" class="test_peon" :id=name>'})
 
-Vue.component('logger', {props: {name: String}, template: '<img src="https://i.imgur.com/k23yRbP.png" class="test_logger" :id=name>'})
+Vue.component('logger', {props: {name: String}, template: '<img src="Sprites/walk1.png" class="test_logger" :id=name>'})
 
 /*to do
 Visual Based Menu
@@ -23,6 +23,8 @@ var app = new Vue({
   data: { //Game variables
     gold: 100000000,
     logs: 100000000,
+	houses: 1,
+	houseCost: 100,
     peonCount: 0,
     peonCost: 10,
     peons: [], //Array of peon objects
@@ -66,6 +68,14 @@ var app = new Vue({
     //Click for Logs!
     clickLogs: function () {
 		this.logs += this.clickGoldAmount
+    },
+	clickHouse: function () {
+		if (this.logs >= this.houseCost){
+			this.logs -= this.houseCost
+            this.houseCost = parseInt(100*(1.75**(this.houses)))
+			this.houseCost -= this.houseCost%10
+			this.houses += 1
+        }
     },
     //Upgrade Peon Speed
     peonSpeedUp: function () {
@@ -112,7 +122,7 @@ var app = new Vue({
     },
 	//instatiates a new peon
     clickPeon: function () {
-		if (this.gold >= this.peonCost){
+		if (this.gold >= this.peonCost && (this.peons.length + this.loggers.length < this.houses*5)){
 			this.gold -= this.peonCost
             this.peonCost = parseInt(10*(1.25**(this.peonCount+1)))
 			this.peonCount += 1
@@ -122,7 +132,7 @@ var app = new Vue({
     //NOW LOGGER FUNCTIONS
     //instatiates a new logger
     clickLogger: function () {
-		if (this.gold >= this.loggerCost){
+		if (this.gold >= this.loggerCost && (this.peons.length + this.loggers.length < this.houses*5)){
 			this.gold -= this.loggerCost
             this.loggerCost = parseInt(10*(1.25**(this.loggerCount+1)))
 			this.loggerCount += 1
@@ -176,28 +186,28 @@ function runGame() {
             if (!peon.returning){ //peon is heading to mine
                 switch (peon.animState) {
                     case 15:
-                        elem.src="https://i.imgur.com/dKAnONq.png"; //walk 2
+                        elem.src="Sprites/walk2.png"; //walk 2
                         break;
                     case 30:
-                        elem.src="https://i.imgur.com/vvZaf3n.png"; //walk 3
+                        elem.src="Sprites/walk3.png"; //walk 3
                         break;
                     case 45:
-                        elem.src="https://i.imgur.com/dKAnONq.png"; //walk 2
+                        elem.src="Sprites/walk2.png"; //walk 2
                         break;
                     case 60:
-                        elem.src="https://i.imgur.com/k23yRbP.png"; //walk 1
+                        elem.src="Sprites/walk1.png"; //walk 1
                         break;
                     case 75:
-                        elem.src="https://i.imgur.com/hzRLJbx.png"; //walk 5
+                        elem.src="Sprites/walk5.png"; //walk 5
                         break;
                     case 90:
-                        elem.src="https://i.imgur.com/lGyfK8U.png"; //walk 4
+                        elem.src="Sprites/walk4.png"; //walk 4
                         break;
                     case 105: 
-                        elem.src="https://i.imgur.com/hzRLJbx.png"; //walk 5
+                        elem.src="Sprites/walk5.png"; //walk 5
                         break;
                     case 120:
-                        elem.src="https://i.imgur.com/k23yRbP.png"; //walk 1
+                        elem.src="Sprites/walk1.png"; //walk 1
                         peon.animState = 0;
                         break;
                 }
@@ -275,7 +285,7 @@ function runGame() {
                     elem.style.zIndex = 3;
                     peon.mLeft += 75
                     elem.style.marginLeft = peon.mLeft + 'px';
-                    elem.src = "https://i.imgur.com/k23yRbP.png" //walk 1
+                    elem.src = "Sprites/walk1.png" //walk 1
                     peon.animState = 0;
                 } else {
                     peon.mTop += (6*(1.25**app.peonSpeed));
@@ -296,28 +306,28 @@ function runGame() {
             if (!logger.returning){ //peon is heading to mine
                 switch (logger.animState) {
                     case 15:
-                        elem.src="https://i.imgur.com/dKAnONq.png"; //walk 2
+                        elem.src="Sprites/walk2.png"; //walk 2
                         break;
                     case 30:
-                        elem.src="https://i.imgur.com/vvZaf3n.png"; //walk 3
+                        elem.src="Sprites/walk3.png"; //walk 3
                         break;
                     case 45:
-                        elem.src="https://i.imgur.com/dKAnONq.png"; //walk 2
+                        elem.src="Sprites/walk2.png"; //walk 2
                         break;
                     case 60:
-                        elem.src="https://i.imgur.com/k23yRbP.png"; //walk 1
+                        elem.src="Sprites/walk1.png"; //walk 1
                         break;
                     case 75:
-                        elem.src="https://i.imgur.com/hzRLJbx.png"; //walk 5
+                        elem.src="Sprites/walk5.png"; //walk 5
                         break;
                     case 90:
-                        elem.src="https://i.imgur.com/lGyfK8U.png"; //walk 4
+                        elem.src="Sprites/walk4.png"; //walk 4
                         break;
                     case 105: 
-                        elem.src="https://i.imgur.com/hzRLJbx.png"; //walk 5
+                        elem.src="Sprites/walk5.png"; //walk 5
                         break;
                     case 120:
-                        elem.src="https://i.imgur.com/k23yRbP.png"; //walk 1
+                        elem.src="Sprites/walk1.png"; //walk 1
                         logger.animState = 0;
                         break;
                 }
