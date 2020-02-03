@@ -7,22 +7,13 @@ Vue.component('logger', {props: {name: String}, template: '<img src="Sprites/wal
 Visual Based Menu
 
 Effects For Gold/Lumber Gain
-
-House System
-
-
-
-PLAYTEST NOTES:
-Upgrades too expensive!
-Less Gold, More Logs for upgrades
-
 */
 
 var app = new Vue({
   el: '#app',
   data: { //Game variables
-    gold: 100000000,
-    logs: 100000000,
+    gold: 00000000,
+    logs: 00000000,
 	houses: 1,
 	houseCost: 100,
     peonCount: 0,
