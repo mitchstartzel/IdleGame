@@ -189,13 +189,13 @@ function runGame() {
                         elem.src="Sprites/walk1.png"; //walk 1
                         break;
                     case 75:
-                        elem.src="Sprites/walk5.png"; //walk 5
+                        elem.src="Sprites/walk4.png"; //walk 5
                         break;
                     case 90:
-                        elem.src="Sprites/walk4.png"; //walk 4
+                        elem.src="Sprites/walk5.png"; //walk 4
                         break;
                     case 105: 
-                        elem.src="Sprites/walk5.png"; //walk 5
+                        elem.src="Sprites/walk4.png"; //walk 5
                         break;
                     case 120:
                         elem.src="Sprites/walk1.png"; //walk 1
@@ -309,13 +309,13 @@ function runGame() {
                         elem.src="Sprites/walk1.png"; //walk 1
                         break;
                     case 75:
-                        elem.src="Sprites/walk5.png"; //walk 5
+                        elem.src="Sprites/walk4.png"; //walk 5
                         break;
                     case 90:
-                        elem.src="Sprites/walk4.png"; //walk 4
+                        elem.src="Sprites/walk5.png"; //walk 4
                         break;
                     case 105: 
-                        elem.src="Sprites/walk5.png"; //walk 5
+                        elem.src="Sprites/walk4.png"; //walk 5
                         break;
                     case 120:
                         elem.src="Sprites/walk1.png"; //walk 1
