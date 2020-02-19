@@ -12,8 +12,8 @@ Effects For Gold/Lumber Gain
 var app = new Vue({
   el: '#app',
   data: { //Game variables
-    gold: 00000000,
-    logs: 00000000,
+    gold: 100,
+    logs: 100,
 	houses: 1,
 	houseCost: 100,
     peonCount: 0,
