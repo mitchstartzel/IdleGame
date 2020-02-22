@@ -78,15 +78,99 @@ html, body {
     z-index: 1;
 }
 
+.upgrade_button{
+    width: 75px;
+}
+
+.menu-icon{
+    top: 0%;
+    left: 50%;
+	position: absolute;
+	z-index: 6
+}
+
+.menu-icon-background {
+	height: 100px;
+	width: 100px;
+	background-color: white;
+	position: absolute;
+
+	
+}
+
+.menu-icon-img {
+	position: absolute;
+	margin-left: 13px; 
+	margin-top: 5px;
+	position: relative;
+
+}
+
+.menu-main-text {
+	font-size: 40px;
+	font:  Lucida Console;
+	margin-left: 125px;
+	margin-top: -75px;
+	position: relative;
+	color: yellow;
+}
+
+.gold-cost-text {
+	font-size: 25px;
+	font:  Lucida Console;
+	margin-left: 415px;
+	margin-top: -100px;
+	position: relative;
+	color: yellow;
+}
+
+.gold-icon {
+	height: 25px;
+	width: 25px;
+	background-color: yellow;
+	position: relative
+	
+}
+
+.cost-icon {
+	width: 30px;
+	height: 30px;
+	margin-top: -5px;	
+	
+}
+
 #houseCount {
 	font-size: 40px;
 	font:  Lucida Console;
-	margin-left: 30px;
+	margin-left:30px;
 	margin-bottom: 10px;
 	color: yellow;
 }
 
-.upgrade_button{
-    width: 75px;
-    
+
+
+#menu-background {
+	top: 0%;
+    left: 50%;
+	height: 750px;
+	width: 750px;
+	margin-left: -375px;
+	background-color: black;
+	position: absolute;
+	opacity: .4;
+	z-index: 4;
+	
+}
+
+#menu-close {
+	top: 0%;
+    left: 50%;
+	height: 50px;
+	width: 50px;
+	margin-left: -350px;
+	margin-top: 25px;
+	background-color: red;
+	position: absolute;
+	z-index: 5;
+	
 }

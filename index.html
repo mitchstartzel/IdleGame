@@ -67,18 +67,36 @@
          
          
           <!--  <img src="https://i.imgur.com/acx5LyQ.png" class="test_peon"> -->
+		    
             <img src="https://i.imgur.com/7asGXz4.png" class="background">
-            <img src="https://i.imgur.com/wfKEqpe.png" class='town_hall'>
             <img src="https://i.imgur.com/WZpEDjd.png" v-on:click="clickGold" class='gold_mine'>
             <img src="https://i.imgur.com/0qDnJa1.png" v-on:click="clickLogs" class='trees'>
 			<div class = 'houses'>
 				<p id = "houseCount">{{ (peons.length + loggers.length) }} / {{houses * 5 }} </p>
 				<img src="Sprites/house.png">
 			</div>
+			
+			<div>
+				<img src="https://i.imgur.com/wfKEqpe.png" v-on:click="toggleTHMenu" class='town_hall'>
+				<template v-if="showTHMenu">
+					<div id = "menu-background" ></div>
+					<div id = "menu-close" v-on:click="toggleTHMenu" ></div>
+					<div id="buy-peon" class = "menu-icon" style="margin-left:-250px; margin-top: 125px">
+						<div class = "menu-icon-background"></div>
+						<img class = "menu-icon-img" src="Sprites/return1.png" >
+						<p class = "menu-main-text"> Purchase a Peon </p>
+						<p class = "gold-cost-text"> 
+							<img class = "cost-icon" src="Sprites/return1.png" align = "middle">
+							{{ peonCost }} 	
+						</p>
+						
+					</div>
+				</template>
+			</div>
             
         </div>
-        
-        
+		
+		
         
         
         

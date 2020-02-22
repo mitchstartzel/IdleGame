@@ -12,8 +12,8 @@ Effects For Gold/Lumber Gain
 var app = new Vue({
   el: '#app',
   data: { //Game variables
-    gold: 100,
-    logs: 100,
+    gold: 10000000,
+    logs: 10000000,
 	houses: 1,
 	houseCost: 100,
     peonCount: 0,
@@ -50,6 +50,9 @@ var app = new Vue({
     //upgrade button controllers
     showMineSpeedUp: true,
     showLogSpeedUp: true,
+	
+	//menu variables
+	showTHMenu: false
   },
   methods: {
 	//Click for gold!
@@ -162,7 +165,11 @@ var app = new Vue({
             this.loggerSpeedCost[0] = 750*parseInt(5**(this.loggerSpeed))
             this.loggerSpeedCost[1] = 250*parseInt(2.5**(this.loggerSpeed))
         }
-    }
+    },
+	
+	toggleTHMenu: function () {
+			this.showTHMenu = !this.showTHMenu
+	}
   }
 })
 //This function is responsible for automating peons and loggers
